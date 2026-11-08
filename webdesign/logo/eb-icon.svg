@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="EB Werbetechnik">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3aa0ff"/><stop offset="1" stop-color="#0a5cd0"/></linearGradient>
+    <linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#g)"/>
+  <rect width="64" height="64" rx="16" fill="url(#s)"/>
+  <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" transform="translate(-2 0) skewX(-9) translate(5 0)">
+    <path d="M15 16v32M15 16h10M15 32h8M15 48h10"/>
+    <path d="M33 16v32M33 16h6a8 8 0 010 16h-6M33 32h7a8 8 0 010 16h-7"/>
+  </g>
+  <circle cx="52" cy="13" r="3.2" fill="#bfe1ff"/>
+</svg>

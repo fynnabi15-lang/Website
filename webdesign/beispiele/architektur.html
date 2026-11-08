@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hartmann Architektur | Demo</title>
+<meta name="theme-color" content="#fafafa">
+<link href="fonts/architektur-fonts.css" rel="stylesheet">
+<style>
+:root{--w:#fafafa;--b:#0b0b0b;--g:#6b6b6b;--g2:#9a9a9a;--l:#e2e2e2;--ease:cubic-bezier(.65,0,.35,1);--out:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--w);color:var(--b);font:16px/1.65 "Inter Tight",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{overflow-x:clip}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+::selection{background:var(--b);color:var(--w)}
+.demo{border-bottom:1px solid var(--l);font-size:.78rem;text-align:center;padding:8px 16px;color:var(--g)}
+.demo a{color:var(--b);text-decoration:underline}
+.wrap{width:min(1240px,100% - 48px);margin-inline:auto}
+section{padding:140px 0}
+.label{display:flex;gap:14px;align-items:center;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:44px}
+.label::before{content:"";width:40px;height:1px;background:currentColor}
+.label b{font-weight:500;color:var(--b)}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(250,250,250,.95);border-bottom:1px solid transparent;transition:border-color .4s}
+header.s{border-color:var(--l)}
+.nav{display:flex;justify-content:space-between;align-items:center;height:70px}
+.logo{font-weight:600;letter-spacing:.08em;display:flex;align-items:center;gap:12px}
+.logo i{width:22px;height:22px;border:1.5px solid var(--b);position:relative;transition:transform .6s var(--ease)}
+.logo i::after{content:"";position:absolute;inset:4px 4px 0 auto;width:6px;background:var(--b)}
+.logo:hover i{transform:rotate(90deg)}
+.logo span{font-weight:300;letter-spacing:.02em}
+nav ul{display:flex;gap:40px;list-style:none;font-size:.9rem}
+nav a{color:var(--g);transition:color .3s;position:relative}
+nav a:hover,nav a.act{color:var(--b)}
+nav a::before{content:"";position:absolute;left:-12px;top:50%;width:5px;height:5px;margin-top:-2.5px;background:var(--b);border-radius:50%;transform:scale(0);transition:transform .3s var(--out)}
+nav a.act::before{transform:scale(1)}
+.menu-btn{display:none;background:none;border:0;cursor:pointer;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;padding:10px 0}
+
+/* hero */
+.hero{padding:110px 0 70px}
+.hero-top{display:flex;justify-content:space-between;gap:20px;color:var(--g);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:56px;opacity:0;animation:fade 1s .2s forwards}
+.hero h1{font-weight:300;font-size:clamp(3.2rem,10vw,9.6rem);line-height:.92;letter-spacing:-.05em}
+.hero h1 b{font-weight:600}
+.ln{display:block;overflow:hidden;padding-bottom:.06em}
+.ln>span{display:block;transform:translateY(110%);animation:up 1.3s var(--ease) forwards}
+.ln:nth-child(2)>span{animation-delay:.12s}
+@keyframes up{to{transform:none}}
+@keyframes fade{to{opacity:1}}
+.hero-foot{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-top:90px;padding-top:28px;border-top:1px solid var(--b);opacity:0;animation:fade 1s .8s forwards}
+.hero-foot p{color:var(--g);max-width:38ch}
+.hero-foot dl{display:grid;gap:4px;font-size:.9rem}
+.hero-foot dt{color:var(--g2);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase}
+.arrow{justify-self:end;align-self:end;display:inline-flex;gap:12px;align-items:center;font-weight:500;padding-bottom:4px;position:relative}
+.arrow::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--b);transform-origin:right;transition:transform .5s var(--ease)}
+.arrow:hover::after{transform:scaleX(0)}
+.arrow svg{width:16px;transition:transform .4s var(--ease)}
+.arrow:hover svg{transform:translateY(4px)}
+
+/* cover */
+.cover{height:min(78vh,720px);background:var(--b);position:relative;overflow:hidden}
+.cover svg{position:absolute;inset:0;width:100%;height:100%;will-change:transform}
+.cover .draw *{stroke-dasharray:2000;stroke-dashoffset:2000;transition:stroke-dashoffset 3s var(--ease)}
+.cover .draw .late{transition-delay:.8s}
+.cover.in .draw *{stroke-dashoffset:0}
+.cover .fillw{opacity:0;transition:opacity 1.5s 2.2s}
+.cover.in .fillw{opacity:1}
+.cap{position:absolute;left:28px;right:28px;bottom:24px;display:flex;justify-content:space-between;color:#8a8a8a;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+
+/* statement */
+.statement p{font-weight:300;font-size:clamp(1.8rem,4vw,3.4rem);line-height:1.2;letter-spacing:-.025em;max-width:22ch}
+.statement .w{color:#cfcfcf;transition:color .5s}
+.statement .w.on{color:var(--b)}
+
+/* projects */
+.proj-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:56px}
+.proj-head h2{font-weight:300;font-size:clamp(2.4rem,5vw,4rem);letter-spacing:-.04em;line-height:1}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{background:none;border:1px solid var(--l);padding:9px 18px;border-radius:999px;font-size:.85rem;cursor:pointer;transition:all .3s var(--out)}
+.filters button:hover{border-color:var(--b)}
+.filters button[aria-pressed="true"]{background:var(--b);color:var(--w);border-color:var(--b)}
+.projects{display:grid;grid-template-columns:repeat(12,1fr);gap:80px 32px}
+.proj{grid-column:span 6;display:block;cursor:none}
+.proj:nth-child(4n+1){grid-column:1/span 7}
+.proj:nth-child(4n+2){grid-column:9/span 4;margin-top:160px}
+.proj:nth-child(4n+3){grid-column:2/span 5}
+.proj:nth-child(4n+4){grid-column:7/span 6;margin-top:90px}
+.proj.hide{display:none}
+.projects.filtered .proj{grid-column:span 6!important;margin-top:0!important}
+.ph{aspect-ratio:4/5;background:#ececec;position:relative;overflow:hidden}
+.proj:nth-child(4n+1) .ph,.proj:nth-child(4n+4) .ph{aspect-ratio:5/4}
+.ph svg{position:absolute;inset:0;width:100%;height:100%;transition:transform 1.4s var(--ease)}
+.proj:hover .ph svg{transform:scale(1.05)}
+.ph::after{content:"";position:absolute;inset:0;background:var(--w);mix-blend-mode:difference;transform:scaleY(0);transform-origin:bottom;transition:transform .8s var(--ease)}
+.proj:hover .ph::after,.proj:focus-visible .ph::after{transform:scaleY(1)}
+.meta{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:baseline;margin-top:18px;padding-top:14px;border-top:1px solid var(--l)}
+.meta em{font-style:normal;color:var(--g2);font-size:.8rem}
+.meta h3{font-weight:500;font-size:1.2rem}
+.meta span{color:var(--g);font-size:.85rem}
+.cursor{position:fixed;left:0;top:0;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;background:var(--b);color:var(--w);display:grid;place-items:center;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;pointer-events:none;z-index:30;transform:scale(0);transition:transform .4s var(--out)}
+.cursor.on{transform:scale(1)}
+@media (hover:none){.cursor{display:none}.proj{cursor:pointer}}
+
+/* approach */
+.approach{background:var(--b);color:var(--w)}
+.approach .label{color:var(--g2)}.approach .label b{color:var(--w)}
+.ap-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #2a2a2a}
+.ap{padding:44px 40px 10px 0;border-right:1px solid #2a2a2a}
+.ap+.ap{padding-left:40px}
+.ap:last-child{border-right:0}
+.ap .n{font-weight:300;font-size:4.6rem;line-height:1;letter-spacing:-.05em;color:#3a3a3a;transition:color .5s}
+.ap:hover .n{color:var(--w)}
+.ap h3{font-weight:500;font-size:1.4rem;margin-top:24px}
+.ap p{color:var(--g2);margin-top:10px}
+
+/* services accordion */
+.services{border-top:1px solid var(--b)}
+.svc{border-bottom:1px solid var(--l)}
+.svc button{width:100%;display:grid;grid-template-columns:80px 1fr auto;gap:24px;align-items:center;padding:34px 0;background:none;border:0;cursor:pointer;text-align:left;transition:padding .5s var(--ease)}
+.svc button:hover{padding-left:14px}
+.svc em{font-style:normal;color:var(--g2);font-size:.85rem}
+.svc h3{font-weight:400;font-size:clamp(1.5rem,3vw,2.4rem);letter-spacing:-.03em}
+.svc .pl{width:22px;height:22px;position:relative}
+.svc .pl::before,.svc .pl::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--b);transition:transform .5s var(--ease)}
+.svc .pl::after{transform:rotate(90deg)}
+.svc.open .pl::after{transform:rotate(0)}
+.svc .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.svc.open .body{grid-template-rows:1fr}
+.svc .body>div{overflow:hidden}
+.svc .body p{color:var(--g);max-width:60ch;padding:0 0 34px 104px}
+
+/* team */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.person .av{aspect-ratio:3/4;background:#ececec;display:grid;place-items:center;position:relative;overflow:hidden}
+.person .av span{font-weight:300;font-size:5rem;letter-spacing:-.05em;transition:transform .8s var(--ease)}
+.person:hover .av span{transform:scale(1.1)}
+.person .av::after{content:"";position:absolute;inset:0;background:var(--b);transform:translateY(101%);transition:transform .7s var(--ease)}
+.person .av b{position:absolute;inset:0;z-index:1;display:grid;place-items:center;color:var(--w);font-weight:400;padding:24px;text-align:center;opacity:0;transition:opacity .4s}
+.person:hover .av::after{transform:none}
+.person:hover .av b{opacity:1;transition-delay:.25s}
+.person h3{font-weight:500;font-size:1.15rem;margin-top:18px}
+.person p{color:var(--g);font-size:.9rem}
+
+/* contact */
+.contact{background:var(--b);color:var(--w)}
+.contact .label{color:var(--g2)}.contact .label b{color:var(--w)}
+.contact h2{font-weight:300;font-size:clamp(2.8rem,7vw,6.4rem);letter-spacing:-.05em;line-height:.95}
+.contact h2 b{font-weight:600}
+.c-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:80px}
+form{display:grid;gap:26px}
+.field{position:relative}
+.field input,.field textarea{width:100%;background:none;border:0;border-bottom:1px solid #3a3a3a;color:var(--w);font:inherit;font-size:1.1rem;padding:22px 0 10px;resize:none;transition:border-color .3s}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--w)}
+.field label{position:absolute;left:0;top:22px;color:var(--g2);pointer-events:none;transition:transform .35s var(--out),font-size .35s,color .35s;transform-origin:left}
+.field input:focus+label,.field input:not(:placeholder-shown)+label,.field textarea:focus+label,.field textarea:not(:placeholder-shown)+label{transform:translateY(-22px);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
+.send{justify-self:start;display:inline-flex;align-items:center;gap:14px;background:var(--w);color:var(--b);border:0;padding:18px 30px;border-radius:999px;font-weight:500;cursor:pointer;transition:gap .4s var(--out)}
+.send:hover{gap:24px}
+.send svg{width:16px}
+.ok{color:var(--g2);font-size:.9rem;min-height:1.4em}
+.info{display:grid;gap:34px;align-content:start}
+.info small{display:block;color:var(--g2);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+.info a{border-bottom:1px solid #444;transition:border-color .3s}
+.info a:hover{border-color:var(--w)}
+footer{background:var(--b);color:#777;font-size:.8rem;padding:26px 0;border-top:1px solid #1d1d1d}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a:hover{color:var(--w)}
+
+.js .rv{opacity:0;transform:translateY(30px);transition:opacity 1.2s var(--out),transform 1.2s var(--out);transition-delay:var(--d,0s)}
+.js .rv.in{opacity:1;transform:none}
+.js .mask{clip-path:inset(100% 0 0 0);transition:clip-path 1.4s var(--ease)}
+.js .mask.in,.js .in .mask{clip-path:inset(0 0 0 0)}
+
+@media (max-width:900px){
+  .menu-btn{display:block}
+  nav ul{position:fixed;inset:70px 0 auto 0;flex-direction:column;gap:0;padding:10px 24px 30px;background:var(--w);border-bottom:1px solid var(--l);transform:translateY(-10px);opacity:0;visibility:hidden;transition:.4s var(--out)}
+  nav ul.open{transform:none;opacity:1;visibility:visible}
+  nav ul a{display:block;padding:18px 0;border-bottom:1px solid var(--l);font-size:1.4rem;font-weight:300;color:var(--b)}
+  nav a::before{display:none}
+  .projects{grid-template-columns:1fr;gap:64px}
+  .proj,.proj:nth-child(n){grid-column:1/-1!important;margin-top:0!important}
+  .ap-grid,.team,.c-grid,.hero-foot{grid-template-columns:1fr}
+  .ap,.ap+.ap{padding:36px 0;border-right:0;border-bottom:1px solid #2a2a2a}
+  .svc button{grid-template-columns:44px 1fr auto}
+  .svc .body p{padding-left:68px}
+  .arrow{justify-self:start}
+  section{padding:90px 0}
+  .c-grid{gap:56px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.ln>span,.hero-top,.hero-foot,.js .rv{opacity:1;transform:none}.js .mask{clip-path:none}.cover .draw *{stroke-dashoffset:0!important}.cover .fillw{opacity:1}.statement .w{color:var(--b)}}
+</style>
+</head>
+<body>
+<div class="demo">Demo-Seite von <a href="../index.html#beispiele">EB Werbetechnik</a> · fiktives Architekturbüro</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top"><i aria-hidden="true"></i>HARTMANN <span>Architektur</span></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menü</button>
+    <nav aria-label="Hauptmenü"><ul id="menu"><li><a href="#projekte">Projekte</a></li><li><a href="#haltung">Haltung</a></li><li><a href="#leistungen">Leistungen</a></li><li><a href="#team">Team</a></li><li><a href="#kontakt">Kontakt</a></li></ul></nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top"><span>Architektur &amp; Innenraum</span><span id="clock">Musterstadt</span></div>
+    <h1><span class="ln"><span>Räume,</span></span><span class="ln"><span>die <b>bleiben.</b></span></span></h1>
+    <div class="hero-foot">
+      <p>Wir planen Wohnhäuser, Umbauten und Gewerbebauten mit klarer Form, ehrlichen Materialien und viel Licht.</p>
+      <dl><dt>Schwerpunkte</dt><dd>Wohnen · Gewerbe · Sanierung</dd></dl>
+      <a class="arrow" href="#projekte">Projekte ansehen <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v12M3 9l5 5 5-5"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<figure class="cover rv" id="cover" aria-hidden="true">
+  <svg viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fafafa" stroke-width="1.2">
+    <g class="draw">
+      <line x1="0" y1="520" x2="1200" y2="520"/>
+      <rect x="290" y="230" width="430" height="290"/>
+      <rect x="720" y="330" width="230" height="190"/>
+      <path d="M290 230L505 120L720 230"/>
+      <rect class="late" x="345" y="310" width="120" height="210"/>
+      <rect class="late" x="515" y="290" width="160" height="110"/>
+      <line class="late" x1="595" y1="290" x2="595" y2="400"/>
+      <rect class="late" x="760" y="370" width="150" height="80"/>
+      <line class="late" x1="0" y1="560" x2="1200" y2="560" stroke-opacity=".3"/>
+      <line class="late" x1="140" y1="520" x2="140" y2="440" stroke-opacity=".5"/>
+      <circle class="late" cx="140" cy="410" r="34" stroke-opacity=".5"/>
+      <line class="late" x1="1040" y1="520" x2="1040" y2="460" stroke-opacity=".5"/>
+      <circle class="late" cx="1040" cy="436" r="26" stroke-opacity=".5"/>
+    </g>
+    <rect class="fillw" x="515" y="290" width="160" height="110" fill="#fafafa" fill-opacity=".9" stroke="none"/>
+    <rect class="fillw" x="760" y="370" width="150" height="80" fill="#fafafa" fill-opacity=".6" stroke="none"/>
+  </svg>
+  <figcaption class="cap"><span>Haus am Hang</span><span>Entwurf · M 1:200</span></figcaption>
+</figure>
+
+<section class="statement" id="haltung">
+  <div class="wrap">
+    <p class="label rv"><b>01</b> Haltung</p>
+    <p id="stmt">Gute Architektur ist leise. Sie folgt dem Ort, dem Licht und den Menschen, die darin leben, und wird mit jedem Jahr besser.</p>
+  </div>
+</section>
+
+<section id="projekte" style="padding-top:0">
+  <div class="wrap">
+    <p class="label rv"><b>02</b> Projekte</p>
+    <div class="proj-head rv">
+      <h2>Ausgewählte Arbeiten</h2>
+      <div class="filters" role="group" aria-label="Filter"><button aria-pressed="true" data-f="all">Alle</button><button aria-pressed="false" data-f="wohnen">Wohnen</button><button aria-pressed="false" data-f="gewerbe">Gewerbe</button><button aria-pressed="false" data-f="sanierung">Sanierung</button></div>
+    </div>
+    <div class="projects" id="projects">
+      <a class="proj rv" href="#kontakt" data-c="wohnen"><div class="ph mask"><svg viewBox="0 0 500 400" fill="none" stroke="#0b0b0b" stroke-width="1.2" preserveAspectRatio="xMidYMid slice"><rect x="110" y="170" width="280" height="190" fill="#dcdcdc"/><path d="M110 170L250 80L390 170"/><rect x="150" y="220" width="70" height="80" fill="#fafafa"/><rect x="280" y="220" width="70" height="80" fill="#fafafa"/><rect x="215" y="290" width="70" height="70" fill="#0b0b0b"/><line x1="40" y1="360" x2="460" y2="360"/></svg></div><div class="meta"><em>01</em><h3>Wohnhaus Lindenweg</h3><span>Neubau</span></div></a>
+      <a class="proj rv" href="#kontakt" data-c="gewerbe" style="--d:.1s"><div class="ph mask"><svg viewBox="0 0 400 500" fill="none" stroke="#0b0b0b" stroke-width="1.2" preserveAspectRatio="xMidYMid slice"><rect x="60" y="120" width="280" height="300" fill="#d2d2d2"/><g fill="#fafafa"><rect x="90" y="150" width="40" height="40"/><rect x="150" y="150" width="40" height="40"/><rect x="210" y="150" width="40" height="40"/><rect x="270" y="150" width="40" height="40"/><rect x="90" y="220" width="40" height="40"/><rect x="150" y="220" width="40" height="40"/><rect x="210" y="220" width="40" height="40"/><rect x="270" y="220" width="40" height="40"/></g><rect x="150" y="320" width="100" height="100" fill="#0b0b0b"/></svg></div><div class="meta"><em>02</em><h3>Büro am Kanal</h3><span>Gewerbe</span></div></a>
+      <a class="proj rv" href="#kontakt" data-c="sanierung"><div class="ph mask"><svg viewBox="0 0 400 500" fill="none" stroke="#0b0b0b" stroke-width="1.2" preserveAspectRatio="xMidYMid slice"><rect x="60" y="250" width="160" height="170" fill="#d8d8d8"/><path d="M60 250l80-60 80 60"/><rect x="220" y="180" width="120" height="240" fill="#c4c4c4"/><rect x="250" y="220" width="60" height="120" fill="#fafafa"/><line x1="40" y1="420" x2="360" y2="420"/></svg></div><div class="meta"><em>03</em><h3>Umbau Altes Gehöft</h3><span>Sanierung</span></div></a>
+      <a class="proj rv" href="#kontakt" data-c="wohnen" style="--d:.1s"><div class="ph mask"><svg viewBox="0 0 500 400" fill="none" stroke="#0b0b0b" stroke-width="1.2" preserveAspectRatio="xMidYMid slice"><rect x="70" y="200" width="200" height="140" fill="#dedede"/><rect x="230" y="140" width="200" height="100" fill="#cfcfcf"/><rect x="250" y="160" width="160" height="60" fill="#fafafa"/><rect x="110" y="250" width="60" height="90" fill="#0b0b0b"/><line x1="30" y1="340" x2="470" y2="340"/></svg></div><div class="meta"><em>04</em><h3>Villa Kubus</h3><span>Neubau</span></div></a>
+      <a class="proj rv" href="#kontakt" data-c="gewerbe"><div class="ph mask"><svg viewBox="0 0 500 400" fill="none" stroke="#0b0b0b" stroke-width="1.2" preserveAspectRatio="xMidYMid slice"><path d="M60 330V180l120-60 120 60 120-60v210z" fill="#d6d6d6"/><g fill="#fafafa"><rect x="100" y="230" width="50" height="100"/><rect x="220" y="230" width="50" height="100"/><rect x="340" y="230" width="50" height="100"/></g></svg></div><div class="meta"><em>05</em><h3>Manufaktur Nord</h3><span>Gewerbe</span></div></a>
+      <a class="proj rv" href="#kontakt" data-c="sanierung" style="--d:.1s"><div class="ph mask"><svg viewBox="0 0 400 500" fill="none" stroke="#0b0b0b" stroke-width="1.2" preserveAspectRatio="xMidYMid slice"><path d="M80 420V210a120 120 0 01240 0v210" fill="#dedede"/><rect x="170" y="300" width="60" height="120" fill="#0b0b0b"/><circle cx="200" cy="210" r="30" fill="#fafafa"/></svg></div><div class="meta"><em>06</em><h3>Kapelle im Grünen</h3><span>Sanierung</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="approach">
+  <div class="wrap">
+    <p class="label rv"><b>03</b> Vorgehen</p>
+    <div class="ap-grid">
+      <div class="ap rv"><div class="n">01</div><h3>Zuhören</h3><p>Wir verstehen Ort, Budget und Alltag, bevor wir den ersten Strich ziehen.</p></div>
+      <div class="ap rv" style="--d:.1s"><div class="n">02</div><h3>Reduzieren</h3><p>Wir entwickeln Varianten und behalten nur, was wirklich trägt.</p></div>
+      <div class="ap rv" style="--d:.2s"><div class="n">03</div><h3>Umsetzen</h3><p>Wir begleiten den Bau bis ins Detail, damit der Entwurf auch gebaut wird.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="leistungen">
+  <div class="wrap">
+    <p class="label rv"><b>04</b> Leistungen</p>
+    <div class="services">
+      <div class="svc rv"><button aria-expanded="false"><em>01</em><h3>Entwurf</h3><span class="pl" aria-hidden="true"></span></button><div class="body"><div><p>Von der ersten Skizze bis zum fertigen Konzept, abgestimmt auf Ort, Budget und Wünsche. Mit Modellen und Visualisierungen, damit Sie sich alles vorstellen können.</p></div></div></div>
+      <div class="svc rv"><button aria-expanded="false"><em>02</em><h3>Genehmigung</h3><span class="pl" aria-hidden="true"></span></button><div class="body"><div><p>Wir erstellen alle Unterlagen, stimmen uns mit den Behörden ab und begleiten das Bauantragsverfahren.</p></div></div></div>
+      <div class="svc rv"><button aria-expanded="false"><em>03</em><h3>Bauleitung</h3><span class="pl" aria-hidden="true"></span></button><div class="body"><div><p>Wir koordinieren Gewerke, Termine und Kosten und sind regelmäßig auf der Baustelle bis zur Übergabe.</p></div></div></div>
+      <div class="svc rv"><button aria-expanded="false"><em>04</em><h3>Innenraum</h3><span class="pl" aria-hidden="true"></span></button><div class="body"><div><p>Materialien, Licht und Einbauten aus einem Guss, damit innen und außen zusammenpassen.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="team" style="padding-top:0">
+  <div class="wrap">
+    <p class="label rv"><b>05</b> Team</p>
+    <div class="team">
+      <div class="person rv"><div class="av"><span>JH</span><b>„Jedes Haus beginnt mit einer Frage.“</b></div><h3>Julia Hartmann</h3><p>Architektin, Gründerin</p></div>
+      <div class="person rv" style="--d:.1s"><div class="av"><span>MB</span><b>„Details entscheiden, wie sich ein Raum anfühlt.“</b></div><h3>Max Berger</h3><p>Architekt, Bauleitung</p></div>
+      <div class="person rv" style="--d:.2s"><div class="av"><span>LK</span><b>„Licht ist das schönste Material.“</b></div><h3>Lea König</h3><p>Innenarchitektin</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="wrap">
+    <p class="label rv"><b>06</b> Kontakt</p>
+    <h2 class="rv">Lassen Sie uns<br><b>gemeinsam bauen.</b></h2>
+    <div class="c-grid">
+      <form id="form" class="rv" novalidate>
+        <div class="field"><input id="f1" placeholder=" " autocomplete="name"><label for="f1">Ihr Name</label></div>
+        <div class="field"><input id="f2" type="email" placeholder=" " autocomplete="email"><label for="f2">E-Mail</label></div>
+        <div class="field"><textarea id="f3" rows="3" placeholder=" "></textarea><label for="f3">Ihr Vorhaben</label></div>
+        <button class="send" type="submit">Anfrage senden <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></button>
+        <p class="ok" aria-live="polite"></p>
+      </form>
+      <div class="info rv" style="--d:.15s">
+        <div><small>Büro</small>Musterstraße 12<br>12345 Musterstadt</div>
+        <div><small>E-Mail</small><a href="#kontakt">info@architektur.example</a></div>
+        <div><small>Telefon</small>01234 / 567 890</div>
+        <div><small>Sprechzeiten</small>Mo – Fr, 9 – 17 Uhr</div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap"><span>© Hartmann Architektur · Demo-Seite, keine echte Firma</span><a href="#top">Nach oben ↑</a></div></footer>
+<div class="cursor" aria-hidden="true">Ansehen</div>
+
+<script>
+(function(){
+var d=document;d.documentElement.classList.add('js');
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+d.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+
+// statement words
+var st=d.getElementById('stmt');st.innerHTML=st.textContent.split(' ').map(function(w){return '<span class="w">'+w+'</span>'}).join(' ');
+var ws=st.querySelectorAll('.w');
+
+// scroll: header, statement, cover parallax, active nav
+var h=d.querySelector('header'),cov=d.querySelector('#cover svg'),coverEl=d.getElementById('cover'),links=d.querySelectorAll('nav a'),secs=[].map.call(links,function(a){return d.querySelector(a.getAttribute('href'))}),tick=false;
+function frame(){tick=false;var y=scrollY;h.classList.toggle('s',y>10);
+  var r=st.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){var p=(innerHeight*.8-r.top)/(r.height+innerHeight*.3),n=Math.floor(p*ws.length);ws.forEach(function(w,i){w.classList.toggle('on',i<n)})}
+  if(!reduce){var cr=coverEl.getBoundingClientRect();if(cr.bottom>0&&cr.top<innerHeight)cov.style.transform='translate3d(0,'+(cr.top*-.12)+'px,0) scale(1.08)'}
+  var cur=-1,best=-1e9;secs.forEach(function(s,i){if(!s)return;var t=s.getBoundingClientRect().top;if(t<innerHeight*.4&&t>best){best=t;cur=i}});links.forEach(function(a,i){a.classList.toggle('act',i===cur)});
+}
+addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(frame)}},{passive:true});frame();
+
+// clock
+var ck=d.getElementById('clock');function clock(){var t=new Date();ck.textContent='Musterstadt · '+t.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})}clock();setInterval(clock,30000);
+
+// filters
+var fb=d.querySelectorAll('.filters button'),grid=d.getElementById('projects'),pr=grid.querySelectorAll('.proj');
+fb.forEach(function(b){b.addEventListener('click',function(){fb.forEach(function(x){x.setAttribute('aria-pressed',x===b)});var f=b.dataset.f;grid.classList.toggle('filtered',f!=='all');
+  pr.forEach(function(p){var s=f==='all'||p.dataset.c===f;p.classList.toggle('hide',!s)})})});
+
+// cursor label
+var cu=d.querySelector('.cursor'),cx=0,cy=0,tx=0,ty=0,run=false;
+function loop(){cx+=(tx-cx)*.2;cy+=(ty-cy)*.2;cu.style.left=cx+'px';cu.style.top=cy+'px';if(run)requestAnimationFrame(loop)}
+pr.forEach(function(p){p.addEventListener('pointerenter',function(e){tx=cx=e.clientX;ty=cy=e.clientY;cu.classList.add('on');if(!run){run=true;loop()}});p.addEventListener('pointerleave',function(){cu.classList.remove('on');run=false})});
+addEventListener('pointermove',function(e){tx=e.clientX;ty=e.clientY},{passive:true});
+
+// accordion
+d.querySelectorAll('.svc button').forEach(function(b){b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',o);b.parentNode.classList.toggle('open',o)})});
+
+// menu
+var mb=d.querySelector('.menu-btn'),menu=d.getElementById('menu');
+function setMenu(o){mb.setAttribute('aria-expanded',o);mb.textContent=o?'Schließen':'Menü';menu.classList.toggle('open',o)}
+mb.addEventListener('click',function(){setMenu(mb.getAttribute('aria-expanded')!=='true')});
+menu.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false)});
+d.addEventListener('keydown',function(e){if(e.key==='Escape'&&menu.classList.contains('open')){setMenu(false);mb.focus()}});
+
+// demo form
+d.getElementById('form').addEventListener('submit',function(e){e.preventDefault();this.querySelector('.ok').textContent='Danke. Das ist nur eine Demo, es wurde nichts gesendet.'});
+})();
+</script>
+</body>
+</html>
