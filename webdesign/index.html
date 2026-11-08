@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Websites für kleine Firmen in Kamen | EB Werbetechnik</title>
-<!-- Läuft unter www.elektro-brock.de/webdesign/ -->
-<link rel="canonical" href="https://www.elektro-brock.de/webdesign/">
+<!-- Live-Adresse (GitHub Pages). Bei eigener Domain hier und in sitemap.xml/robots.txt ersetzen -->
+<link rel="canonical" href="https://fynnabi15-lang.github.io/Website/webdesign/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="EB Werbetechnik">
 <meta property="og:title" content="Websites für kleine Firmen in Kamen | EB Werbetechnik">
 <meta property="og:description" content="Professionelle Websites mit Texten, Fotos und Logo aus einer Hand. In 2–3 Werktagen online.">
-<meta property="og:url" content="https://www.elektro-brock.de/webdesign/">
-<meta property="og:image" content="https://www.elektro-brock.de/webdesign/og-bild.png">
+<meta property="og:url" content="https://fynnabi15-lang.github.io/Website/webdesign/">
+<meta property="og:image" content="https://fynnabi15-lang.github.io/Website/webdesign/og-bild.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="logo/apple-touch-icon.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"EB Werbetechnik","description":"Professionelle Websites für kleine Firmen","url":"https://www.elektro-brock.de/webdesign/","image":"https://www.elektro-brock.de/webdesign/og-bild.png","areaServed":"Kamen und Umgebung","address":{"@type":"PostalAddress","streetAddress":"Grimmstr. 3","postalCode":"59174","telephone":"+49 2307 236496","email":"info@elektro-brock.de","addressLocality":"Kamen","addressCountry":"DE"},"priceRange":"699 € – 999 €"}
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"EB Werbetechnik","description":"Professionelle Websites für kleine Firmen","url":"https://fynnabi15-lang.github.io/Website/webdesign/","image":"https://fynnabi15-lang.github.io/Website/webdesign/og-bild.png","areaServed":"Kamen und Umgebung","address":{"@type":"PostalAddress","streetAddress":"Grimmstr. 3","postalCode":"59174","telephone":"+49 2307 236496","email":"info@elektro-brock.de","addressLocality":"Kamen","addressCountry":"DE"},"priceRange":"699 € – 999 €"}
 </script>
 <link rel="icon" href="logo/eb-icon.svg" type="image/svg+xml">
 <meta name="description" content="Websites für kleine Firmen in Kamen und Umgebung: Design, Texte, Fotos und Logo aus einer Hand. In 2–3 Werktagen online, Pakete ab 699 €.">
@@ -204,6 +204,23 @@ nav .btn{min-height:42px;padding:0 20px;color:#fff;font-size:.78rem}
 .ex h3{margin-top:6px}
 #beispiele .grid{grid-template-columns:repeat(2,1fr)}
 @media (max-width:700px){#beispiele .grid{grid-template-columns:1fr}}
+/* package finder */
+.finder{margin:48px auto 0;max-width:1080px;padding:36px}
+.finder:hover{transform:none}
+.f-head h3{font-size:1.5rem;font-style:italic;text-transform:uppercase}
+.f-q{margin-top:26px;transition:opacity .3s}
+.f-q>p{font-weight:700;margin-bottom:12px}
+.f-opts{display:flex;flex-wrap:wrap;gap:10px}
+.f-opts button{font:inherit;font-size:.95rem;color:var(--ink);background:rgba(5,7,12,.5);border:1px solid var(--line);border-radius:10px;padding:12px 18px;cursor:pointer;transition:border-color .25s,background .25s,transform .25s var(--ease)}
+.f-opts button:hover{border-color:var(--accent);transform:translateY(-2px)}
+.f-opts button[aria-pressed="true"]{background:linear-gradient(135deg,#1f8fff,#0a64d6);border-color:transparent;color:#fff}
+.f-res{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:30px;padding:24px;border-radius:14px;border:1px solid rgba(31,143,255,.5);background:radial-gradient(400px 160px at 0 0,rgba(31,143,255,.2),transparent 70%),rgba(5,7,12,.5);animation:fres .5s var(--ease)}
+.f-res[hidden]{display:none}
+@keyframes fres{from{opacity:0;transform:translateY(12px)}}
+.f-res small{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.f-res strong{display:block;font-size:2rem;font-style:italic;text-transform:uppercase;line-height:1.1;margin-top:4px}
+.f-res p{color:var(--muted);margin-top:6px;max-width:52ch}
+@media (max-width:600px){.finder{padding:24px 20px}.f-opts button{width:100%;text-align:left}.f-res .btn{width:100%}}
 /* team */
 .team .card{display:flex;gap:24px;align-items:flex-start}
 .photo{flex:none;width:88px;height:88px;border-radius:50%;display:grid;place-items:center;font-size:.68rem;color:var(--muted);background:conic-gradient(from 0deg,#1f8fff,#0a3d8f,#5cb6ff,#1f8fff);padding:2px;animation:spin 8s linear infinite}
@@ -554,6 +571,23 @@ header.scrolled .brockbar{margin-top:-35px}
         <a class="btn btn-primary" href="#kontakt">Beratung anfragen</a>
       </article>
     </div>
+    <div class="finder card rv" id="finder">
+      <div class="f-head"><p class="eyebrow">Paket-Finder</p><h3>Unsicher, was passt? <span class="grad">Drei Fragen.</span></h3></div>
+      <div class="f-q" data-q="seiten"><p>Wie viel soll auf Ihre Website?</p><div class="f-opts">
+        <button type="button" data-v="klein">Das Wichtigste auf 2–3 Seiten</button>
+        <button type="button" data-v="gross">Viel: Leistungen, Team, Galerie …</button>
+        <button type="button" data-v="unsicher">Weiß ich noch nicht</button></div></div>
+      <div class="f-q" data-q="extras"><p>Brauchen Sie besondere Funktionen?</p><div class="f-opts">
+        <button type="button" data-v="nein">Nein, Infos und Kontakt reichen</button>
+        <button type="button" data-v="ja">Ja, z. B. Terminbuchung oder Shop</button></div></div>
+      <div class="f-q" data-q="google"><p>Wie wichtig ist es, bei Google gefunden zu werden?</p><div class="f-opts">
+        <button type="button" data-v="ja">Sehr wichtig</button>
+        <button type="button" data-v="nein">Nicht so wichtig</button></div></div>
+      <div class="f-res" aria-live="polite" hidden>
+        <div><small>Unsere Empfehlung</small><strong id="f-name"></strong><p id="f-why"></p></div>
+        <a class="btn btn-primary" href="#kontakt" id="f-go">Mit dieser Wahl anfragen</a>
+      </div>
+    </div>
     <p class="fine center rv" style="text-align:center">Alle Preise sind Bruttopreise. Hosting und Pflege kalkulieren wir individuell, je nachdem, was Sie brauchen.</p>
   </div>
 </section>
@@ -781,7 +815,7 @@ var CONFIG={formKey:'',whatsapp:'',mail:'info@elektro-brock.de'};
 
     // 3D tilt on cards + mockup
     if(fine){
-      d.querySelectorAll('.card,.shot').forEach(function(c){
+      d.querySelectorAll('.card:not(.finder),.shot').forEach(function(c){
         c.classList.add('tilt');
         c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(900px) rotateX('+(-y*6)+'deg) rotateY('+(x*8)+'deg) translateY(-6px)'});
         c.addEventListener('pointerleave',function(){c.style.transform=''});
@@ -852,6 +886,18 @@ var CONFIG={formKey:'',whatsapp:'',mail:'info@elektro-brock.de'};
 
   // WhatsApp-Button nur zeigen, wenn eine Nummer eingetragen ist
   if(CONFIG.whatsapp){var wa=d.getElementById('wa');wa.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent('Hallo, ich interessiere mich für eine Website.');wa.hidden=false}
+
+  // package finder
+  var fa={},fq=d.querySelectorAll('.f-q'),fres=d.querySelector('.f-res');
+  fq.forEach(function(q){q.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+    q.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});fa[q.dataset.q]=b.dataset.v;
+    if(fa.seiten&&fa.extras&&fa.google){var pick,why;
+      if(fa.extras==='ja'){pick=3;why='Für Funktionen wie Terminbuchung oder Shop planen wir Ihre Seite individuell. Den Preis nennen wir nach dem Gespräch.'}
+      else if(fa.seiten==='gross'||fa.google==='ja'){pick=2;why='10+ Seiten Platz für alle Infos, ausführlich gestaltet, mit Google-Eintrag. 999 €.'}
+      else{pick=1;why='Ein schlichter, sauberer Auftritt mit 2–3 Seiten, inklusive Texten, Fotos und Logo. 699 €.'}
+      d.getElementById('f-name').textContent=['','Klein','Groß','Custom'][pick];d.getElementById('f-why').textContent=why;
+      fres.hidden=false;fres.dataset.pick=pick}})});
+  d.getElementById('f-go').addEventListener('click',function(){d.getElementById('paket').selectedIndex=+fres.dataset.pick});
 
   onScroll();
 })();

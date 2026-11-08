@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seite nicht gefunden | Brock Elektrotechnik</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#05070c;--card:#0e1522;--line:#1b2740;--blue:#1f8fff;--blue2:#5cb6ff;--white:#f4f7fb;--muted:#9aa8bf}
+*{box-sizing:border-box;margin:0;padding:0}
+html{color-scheme:dark}
+body{min-height:100vh;display:grid;place-items:center;background:radial-gradient(700px 400px at 70% 20%,rgba(31,143,255,.2),transparent 60%),var(--bg);color:var(--white);font:17px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;padding:24px;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;opacity:.3;mask-image:radial-gradient(circle at 50% 40%,#000,transparent 70%);-webkit-mask-image:radial-gradient(circle at 50% 40%,#000,transparent 70%);pointer-events:none}
+main{position:relative;text-align:center;max-width:560px}
+.code{font-size:clamp(6rem,24vw,11rem);font-weight:800;font-style:italic;line-height:1;letter-spacing:-.02em;display:flex;justify-content:center;align-items:center;gap:.05em}
+.code span{color:var(--blue);text-shadow:0 0 40px rgba(31,143,255,.6)}
+.bolt{width:.55em;height:.9em;animation:flick 3s infinite}
+@keyframes flick{0%,92%,100%{opacity:1}94%{opacity:.2}96%{opacity:1}97%{opacity:.4}}
+h1{font-size:clamp(1.5rem,5vw,2.2rem);font-weight:800;font-style:italic;text-transform:uppercase;margin-top:18px}
+p{color:var(--muted);margin-top:12px}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+a.btn{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:6px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.85rem;text-decoration:none;border:1px solid var(--blue);transition:transform .25s}
+a.btn:hover{transform:translateY(-2px)}
+.pri{background:linear-gradient(135deg,#1f8fff,#0a64d6);color:#fff;box-shadow:0 0 40px rgba(31,143,255,.35)}
+.sec{color:var(--white)}
+:focus-visible{outline:3px solid var(--blue2);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.bolt{animation:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="code" aria-hidden="true">4<svg class="bolt" viewBox="0 0 40 64"><path d="M24 2L4 36h14l-4 26 22-36H22z" fill="#1f8fff"/></svg>4</div>
+  <h1>Hier ist kein <span style="color:var(--blue)">Strom</span> drauf</h1>
+  <p>Die Seite, die Sie suchen, gibt es nicht (mehr). Vielleicht hilft einer dieser Wege weiter:</p>
+  <div class="btns">
+    <a class="btn pri" data-href="">Zur Startseite</a>
+    <a class="btn sec" data-href="webdesign/">Webdesign</a>
+    <a class="btn sec" data-href="#kontakt">Kontakt</a>
+  </div>
+</main>
+<script>
+// Pfad je nach Hosting: GitHub Pages (Projektseite) oder eigene Domain
+var base=location.hostname.endsWith('github.io')?'/'+location.pathname.split('/')[1]+'/':'/';
+document.querySelectorAll('[data-href]').forEach(function(a){a.href=base+a.dataset.href});
+</script>
+</body>
+</html>

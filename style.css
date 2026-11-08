@@ -256,3 +256,11 @@ html{scroll-padding-top:120px}
 }
 @media (prefers-reduced-motion:reduce){.topbar,.wt-logo{animation:none}}
 @media (max-width:900px){.nav{position:static}nav ul{top:100%}}
+
+/* Feinschliff: Anruf-Button erst nach dem Hero, mehr Luft unter der Kopfzeile */
+@media (max-width:900px){
+  .call-fab{opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s}
+  .call-fab.show{opacity:1;transform:none;pointer-events:auto}
+  .hero{padding-top:178px}
+}
+img{height:auto}
