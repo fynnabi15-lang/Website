@@ -204,23 +204,67 @@ nav .btn{min-height:42px;padding:0 20px;color:#fff;font-size:.78rem}
 .ex h3{margin-top:6px}
 #beispiele .grid{grid-template-columns:repeat(2,1fr)}
 @media (max-width:700px){#beispiele .grid{grid-template-columns:1fr}}
-/* package finder */
-.finder{margin:48px auto 0;max-width:1080px;padding:36px}
-.finder:hover{transform:none}
-.f-head h3{font-size:1.5rem;font-style:italic;text-transform:uppercase}
-.f-q{margin-top:26px;transition:opacity .3s}
-.f-q>p{font-weight:700;margin-bottom:12px}
-.f-opts{display:flex;flex-wrap:wrap;gap:10px}
-.f-opts button{font:inherit;font-size:.95rem;color:var(--ink);background:rgba(5,7,12,.5);border:1px solid var(--line);border-radius:10px;padding:12px 18px;cursor:pointer;transition:border-color .25s,background .25s,transform .25s var(--ease)}
-.f-opts button:hover{border-color:var(--accent);transform:translateY(-2px)}
-.f-opts button[aria-pressed="true"]{background:linear-gradient(135deg,#1f8fff,#0a64d6);border-color:transparent;color:#fff}
-.f-res{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:30px;padding:24px;border-radius:14px;border:1px solid rgba(31,143,255,.5);background:radial-gradient(400px 160px at 0 0,rgba(31,143,255,.2),transparent 70%),rgba(5,7,12,.5);animation:fres .5s var(--ease)}
-.f-res[hidden]{display:none}
-@keyframes fres{from{opacity:0;transform:translateY(12px)}}
-.f-res small{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.f-res strong{display:block;font-size:2rem;font-style:italic;text-transform:uppercase;line-height:1.1;margin-top:4px}
-.f-res p{color:var(--muted);margin-top:6px;max-width:52ch}
-@media (max-width:600px){.finder{padding:24px 20px}.f-opts button{width:100%;text-align:left}.f-res .btn{width:100%}}
+/* price calculator */
+.calc{margin:48px auto 0;max-width:1080px;padding:0;display:grid;grid-template-columns:1.15fr .85fr;overflow:hidden}
+.calc:hover{transform:none}
+.calc h3{font-size:1.6rem;font-style:italic;text-transform:uppercase;line-height:1.1}
+.c-left{padding:38px}
+.c-right{padding:38px;background:radial-gradient(420px 260px at 100% 0,rgba(31,143,255,.25),transparent 70%),rgba(5,7,12,.55);border-left:1px solid var(--line);display:flex;flex-direction:column}
+.c-row{margin-top:28px}
+.c-row label{display:flex;justify-content:space-between;font-weight:700;margin-bottom:14px}
+.c-row label b{font-size:1.2rem;color:var(--accent2);font-variant-numeric:tabular-nums}
+.c-row input[type=range]{width:100%;height:6px;border-radius:6px;appearance:none;-webkit-appearance:none;background:linear-gradient(90deg,var(--accent) var(--fill,20%),var(--line) var(--fill,20%));cursor:pointer}
+.c-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:4px solid var(--accent);box-shadow:0 0 20px rgba(31,143,255,.6);cursor:grab}
+.c-row input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid var(--accent);box-shadow:0 0 20px rgba(31,143,255,.6);cursor:grab}
+.c-scale{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-top:10px}
+.c-opts{border:0;margin-top:26px;display:grid;gap:10px}
+.c-opts legend{font-weight:700;margin-bottom:12px;padding:0}
+.tog{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:border-color .25s,background .25s}
+.tog:hover{border-color:var(--accent)}
+.tog input{position:absolute;opacity:0;pointer-events:none}
+.tog span{position:relative;padding-left:40px}
+.tog span::before{content:"";position:absolute;left:0;top:50%;width:30px;height:18px;margin-top:-9px;border-radius:999px;background:var(--line);transition:background .25s}
+.tog span::after{content:"";position:absolute;left:3px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:#fff;transition:transform .25s var(--ease)}
+.tog:has(input:checked){border-color:rgba(31,143,255,.6);background:rgba(31,143,255,.08)}
+.tog input:checked+span::before{background:var(--accent)}
+.tog input:checked+span::after{transform:translateX(12px)}
+.tog input:focus-visible+span{outline:3px solid var(--accent2);outline-offset:6px;border-radius:6px}
+.c-inc{margin-top:18px;color:var(--muted);font-size:.9rem}
+.c-right small{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.c-pkg{font-size:1.1rem;font-style:italic;text-transform:uppercase;letter-spacing:.1em;color:var(--accent2);margin-top:6px}
+.c-price{font-size:clamp(3.4rem,6vw,4.8rem);font-weight:800;line-height:1.05;margin:8px 0 4px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.c-price em{font-style:normal;font-size:.5em;color:var(--muted);font-weight:700}
+.c-price.word{font-size:clamp(2.2rem,4vw,3rem)}
+.c-note{color:var(--muted);font-size:.92rem;min-height:2.6em}
+.c-lines{list-style:none;display:grid;gap:10px;margin:18px 0 26px;flex:1;font-size:.95rem}
+.c-lines li{display:flex;gap:10px}
+.c-lines li::before{content:"";flex:none;width:8px;height:8px;margin-top:9px;border-radius:50%;background:var(--accent2);box-shadow:0 0 10px var(--accent2)}
+.c-right .btn{width:100%}
+/* care */
+.care{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;margin-top:56px;align-items:stretch}
+.care-cards{display:grid;gap:20px}
+.care-cards .card{display:grid;grid-template-columns:auto 1fr;column-gap:22px;align-items:start}
+.care-cards .icon{grid-row:1/3;margin:0}
+.care-cards .card h3{align-self:end}
+.care-price{display:flex;flex-direction:column;border-color:rgba(31,143,255,.5);background:radial-gradient(420px 240px at 100% 0,rgba(31,143,255,.22),transparent 70%),var(--card)}
+.care-price small{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.care-price strong{font-size:2.4rem;font-style:italic;text-transform:uppercase;line-height:1.1;margin-top:6px}
+.care-steps{list-style:none;counter-reset:cs;display:grid;gap:16px;margin:26px 0;flex:1}
+.care-steps li{counter-increment:cs;display:grid;grid-template-columns:34px 1fr;column-gap:14px}
+.care-steps li::before{content:counter(cs);grid-row:1/3;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:.9rem}
+.care-steps span{color:var(--muted);font-size:.9rem}
+.care-price .btn{width:100%}
+/* gratis-check */
+.pr{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.chk{list-style:none;display:grid;gap:12px;margin-top:28px}
+.chk li{padding-left:34px;position:relative}
+.chk li::before{content:"✓";position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:rgba(31,143,255,.18);color:var(--accent2);display:grid;place-items:center;font-size:.8rem;font-weight:800}
+.pform{margin-top:0;padding:34px}
+.pform:hover{transform:none}
+.pform .check{display:flex;gap:12px;align-items:center;text-transform:none;letter-spacing:0;font-size:.95rem;color:var(--ink);font-weight:500}
+.pform .check input{width:20px;height:20px;accent-color:var(--accent)}
+@media (max-width:980px){.calc,.care,.pr{grid-template-columns:1fr}.c-right{border-left:0;border-top:1px solid var(--line)}.pr{gap:40px}}
+@media (max-width:600px){.c-left,.c-right{padding:26px 20px}.care-cards .card{grid-template-columns:1fr}.care-cards .icon{grid-row:auto;margin-bottom:14px}.pform{padding:24px 20px}}
 /* team */
 .team .card{display:flex;gap:24px;align-items:flex-start}
 .photo{flex:none;width:88px;height:88px;border-radius:50%;display:grid;place-items:center;font-size:.68rem;color:var(--muted);background:conic-gradient(from 0deg,#1f8fff,#0a3d8f,#5cb6ff,#1f8fff);padding:2px;animation:spin 8s linear infinite}
@@ -477,6 +521,7 @@ header.scrolled .brockbar{margin-top:-35px}
       <div class="card rv" style="--d:.15s"><div class="num">02</div><h3>Alte Seiten schaden</h3><p>Eine Seite, die auf dem Handy nicht lesbar ist, kostet Vertrauen und Anfragen.</p></div>
       <div class="card rv" style="--d:.25s"><div class="num">03</div><h3>Keine Zeit dafür</h3><p>Im Tagesgeschäft bleibt keine Zeit für Texte, Fotos und Technik. Das übernehmen wir.</p></div>
     </div>
+    <p class="center rv" style="text-align:center;margin-top:44px"><a class="btn btn-primary" href="#pruefung">Meine Website kostenlos prüfen lassen</a></p>
   </div>
 </section>
 
@@ -571,28 +616,66 @@ header.scrolled .brockbar{margin-top:-35px}
         <a class="btn btn-primary" href="#kontakt">Beratung anfragen</a>
       </article>
     </div>
-    <div class="finder card rv" id="finder">
-      <div class="f-head"><p class="eyebrow">Paket-Finder</p><h3>Unsicher, was passt? <span class="grad">Drei Fragen.</span></h3></div>
-      <div class="f-q" data-q="seiten"><p>Wie viel soll auf Ihre Website?</p><div class="f-opts">
-        <button type="button" data-v="klein">Das Wichtigste auf 2–3 Seiten</button>
-        <button type="button" data-v="gross">Viel: Leistungen, Team, Galerie …</button>
-        <button type="button" data-v="unsicher">Weiß ich noch nicht</button></div></div>
-      <div class="f-q" data-q="extras"><p>Brauchen Sie besondere Funktionen?</p><div class="f-opts">
-        <button type="button" data-v="nein">Nein, Infos und Kontakt reichen</button>
-        <button type="button" data-v="ja">Ja, z. B. Terminbuchung oder Shop</button></div></div>
-      <div class="f-q" data-q="google"><p>Wie wichtig ist es, bei Google gefunden zu werden?</p><div class="f-opts">
-        <button type="button" data-v="ja">Sehr wichtig</button>
-        <button type="button" data-v="nein">Nicht so wichtig</button></div></div>
-      <div class="f-res" aria-live="polite" hidden>
-        <div><small>Unsere Empfehlung</small><strong id="f-name"></strong><p id="f-why"></p></div>
-        <a class="btn btn-primary" href="#kontakt" id="f-go">Mit dieser Wahl anfragen</a>
+    <div class="calc card rv" id="calc">
+      <div class="c-left">
+        <p class="eyebrow">Preisrechner</p>
+        <h3>Was kostet <span class="grad">meine Seite?</span></h3>
+        <div class="c-row">
+          <label for="c-pages">Wie viele Seiten? <b id="c-pn">3</b></label>
+          <input type="range" id="c-pages" min="1" max="12" value="3">
+          <div class="c-scale" aria-hidden="true"><span>1</span><span>6</span><span>12+</span></div>
+        </div>
+        <fieldset class="c-opts">
+          <legend>Dazu wünsche ich mir</legend>
+          <label class="tog"><input type="checkbox" id="c-google"><span>Google-Eintrag</span></label>
+          <label class="tog"><input type="checkbox" id="c-func"><span>Terminbuchung, Shop oder andere Funktionen</span></label>
+          <label class="tog"><input type="checkbox" id="c-host"><span>Domain und Hosting von Ihnen</span></label>
+          <label class="tog"><input type="checkbox" id="c-care"><span>Pflege-Abo für schnelle Änderungen</span></label>
+        </fieldset>
+        <p class="c-inc">Texte, Fotos und Logo sind immer dabei.</p>
+      </div>
+      <div class="c-right" aria-live="polite">
+        <small>Ihre Empfehlung</small>
+        <strong class="c-pkg" id="c-pkg">Klein</strong>
+        <div class="c-price"><span id="c-price">699</span><em id="c-eur"> €</em></div>
+        <p class="c-note" id="c-note"></p>
+        <ul class="c-lines" id="c-lines"></ul>
+        <a class="btn btn-primary" href="#kontakt" id="c-go">Mit dieser Auswahl anfragen</a>
       </div>
     </div>
-    <p class="fine center rv" style="text-align:center">Alle Preise sind Bruttopreise. Hosting und Pflege kalkulieren wir individuell, je nachdem, was Sie brauchen.</p>
+    <p class="fine center rv" style="text-align:center">Alle Preise sind Bruttopreise. Hosting und <a href="#pflege">Pflege</a> kalkulieren wir individuell, je nachdem, was Sie brauchen.</p>
   </div>
 </section>
 
-<section class="alt" id="ablauf">
+<section class="alt" id="pflege">
+  <div class="wrap">
+    <div class="head center rv">
+      <p class="eyebrow">Pflege-Abo</p>
+      <h2>Wir kümmern uns, <span class="grad">auch danach.</span></h2>
+      <p class="lead">Eine Website ist nie ganz fertig. Mit dem Pflege-Abo bleibt Ihre Seite aktuell und sicher, und Sie müssen sich um nichts Technisches kümmern.</p>
+    </div>
+    <div class="care">
+      <div class="care-cards">
+        <div class="card rv" style="--d:.05s"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Änderungen in wenigen Stunden</h3><p>Neue Öffnungszeiten, ein anderes Foto, ein neuer Preis? Schicken Sie uns Ihren Wunsch, wir setzen ihn in der Regel innerhalb weniger Stunden um.</p></div>
+        <div class="card rv" style="--d:.12s"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div><h3>Domain und Hosting</h3><p>Auf Wunsch übernehmen wir Einrichtung und Verwaltung. Sie haben einen festen Ansprechpartner für alles Technische.</p></div>
+        <div class="card rv" style="--d:.19s"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Sicherheit</h3><p>DDoS-Schutz und Sicherheitspaket. In den Paketen Groß und Custom ist das enthalten.</p></div>
+      </div>
+      <aside class="card care-price rv" style="--d:.1s">
+        <small>Monatlicher Preis</small>
+        <strong>Individuell</strong>
+        <p>Wir kalkulieren das passend zu Ihrer Seite und nennen Ihnen den Preis im Erstgespräch.</p>
+        <ol class="care-steps">
+          <li><b>Wunsch schicken</b><span>per E-Mail, Telefon oder Nachricht</span></li>
+          <li><b>Wir setzen um</b><span>meist in wenigen Stunden</span></li>
+          <li><b>Online</b><span>Sie müssen nichts weiter tun</span></li>
+        </ol>
+        <a class="btn btn-primary" href="#kontakt" id="care-go">Pflege-Abo anfragen</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="ablauf">
   <div class="wrap">
     <div class="head rv">
       <p class="eyebrow">Ablauf</p>
@@ -607,7 +690,7 @@ header.scrolled .brockbar{margin-top:-35px}
   </div>
 </section>
 
-<section id="warum">
+<section class="alt" id="warum">
   <div class="wrap">
     <div class="head rv">
       <p class="eyebrow">Warum wir</p>
@@ -622,7 +705,7 @@ header.scrolled .brockbar{margin-top:-35px}
   </div>
 </section>
 
-<section class="alt" id="beispiele">
+<section id="beispiele">
   <div class="wrap">
     <div class="head rv">
       <p class="eyebrow">Beispiele</p>
@@ -650,7 +733,7 @@ header.scrolled .brockbar{margin-top:-35px}
   </div>
 </section>
 
-<section class="team" id="ueber-uns">
+<section class="alt team" id="ueber-uns">
   <div class="wrap">
     <div class="head rv">
       <p class="eyebrow">Über uns</p>
@@ -680,7 +763,7 @@ header.scrolled .brockbar{margin-top:-35px}
   </div>
 </section>
 
-<section class="alt" id="faq">
+<section id="faq">
   <div class="wrap">
     <div class="head center rv">
       <p class="eyebrow">Fragen</p>
@@ -693,6 +776,31 @@ header.scrolled .brockbar{margin-top:-35px}
       <div class="qa rv"><button aria-expanded="false">Kümmern Sie sich auch um Domain und Hosting?<span class="plus" aria-hidden="true"></span></button><div class="ans"><div><p>Ja, auf Wunsch übernehmen wir die Einrichtung und Verwaltung von Domain und Hosting. So haben Sie einen festen Ansprechpartner und müssen sich um nichts Technisches kümmern.</p></div></div></div>
       <div class="qa rv"><button aria-expanded="false">Kann ich meine Website später anpassen lassen?<span class="plus" aria-hidden="true"></span></button><div class="ans"><div><p>Selbstverständlich. Mit unserem Pflege-Abo setzen wir Ihre Änderungswünsche in der Regel innerhalb weniger Stunden um, damit Ihre Website stets aktuell bleibt.</p></div></div></div>
     </div>
+  </div>
+</section>
+
+<section class="alt" id="pruefung">
+  <div class="wrap pr">
+    <div class="rv">
+      <p class="eyebrow">Gratis-Check</p>
+      <h2>Wie gut ist Ihre <span class="grad">aktuelle Website?</span></h2>
+      <p class="lead">Schicken Sie uns die Adresse Ihrer Seite. Wir schauen sie uns persönlich an und sagen Ihnen ehrlich, was auffällt und was sich lohnt. Kostenlos und ohne Verpflichtung.</p>
+      <ul class="chk">
+        <li>Aussehen und Wirkung auf Besucher</li>
+        <li>Darstellung auf dem Handy</li>
+        <li>Verständlichkeit der Texte</li>
+        <li>Auffindbarkeit bei Google</li>
+      </ul>
+    </div>
+    <form class="cform pform card rv" style="--d:.1s" id="pform" novalidate>
+      <label class="full">Adresse Ihrer Website<input name="website" type="text" inputmode="url" autocomplete="url" placeholder="z. B. www.meine-firma.de"></label>
+      <label class="check full"><input type="checkbox" name="keine"> Ich habe noch keine Website</label>
+      <label>Name<input name="name" autocomplete="name" required></label>
+      <label>Telefon oder E-Mail<input name="kontakt" autocomplete="email" required></label>
+      <button class="btn btn-primary full" type="submit">Kostenlos prüfen lassen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+      <p class="msg" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 
@@ -712,7 +820,7 @@ header.scrolled .brockbar{margin-top:-35px}
         <label>Name<input name="name" autocomplete="name" required></label>
         <label>Firma<input name="firma" autocomplete="organization"></label>
         <label>Telefon oder E-Mail<input name="kontakt" autocomplete="email" required></label>
-        <label>Paket<select name="paket" id="paket"><option>Noch unsicher</option><option>Klein (699 €)</option><option>Groß (999 €)</option><option>Custom (individuell)</option></select></label>
+        <label>Paket<select name="paket" id="paket"><option>Noch unsicher</option><option>Klein (699 €)</option><option>Groß (999 €)</option><option>Custom (individuell)</option><option>Pflege-Abo</option></select></label>
         <label class="full">Worum geht es?<textarea name="text" rows="4" placeholder="z. B. Wir sind ein Malerbetrieb und brauchen eine neue Website."></textarea></label>
         <button class="btn btn-primary" type="submit">Anfrage senden <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
@@ -815,7 +923,7 @@ var CONFIG={formKey:'',whatsapp:'',mail:'info@elektro-brock.de'};
 
     // 3D tilt on cards + mockup
     if(fine){
-      d.querySelectorAll('.card:not(.finder),.shot').forEach(function(c){
+      d.querySelectorAll('.card:not(.calc):not(.pform):not(.care-price),.shot').forEach(function(c){
         c.classList.add('tilt');
         c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(900px) rotateX('+(-y*6)+'deg) rotateY('+(x*8)+'deg) translateY(-6px)'});
         c.addEventListener('pointerleave',function(){c.style.transform=''});
@@ -868,36 +976,56 @@ var CONFIG={formKey:'',whatsapp:'',mail:'info@elektro-brock.de'};
   var sel=d.getElementById('paket');
   d.querySelectorAll('.pack').forEach(function(p,i){var b=p.querySelector('.btn');if(b)b.addEventListener('click',function(){sel.selectedIndex=i+1})});
 
-  // contact form (Versand noch nicht verbunden)
-  // contact form -> Web3Forms (Schlüssel oben in CONFIG eintragen)
-  var cf=d.getElementById('cform'),msg=cf.querySelector('.msg'),sendBtn=cf.querySelector('button[type=submit]');
-  cf.addEventListener('submit',function(e){e.preventDefault();
-    if(!cf.elements.name.value.trim()||!cf.elements.kontakt.value.trim()){msg.textContent='Bitte Name und Telefon oder E-Mail angeben.';return}
-    if(!CONFIG.formKey){ // ohne Schlüssel: E-Mail-Programm öffnen (wie auf der Brock-Seite)
-      var el=cf.elements,body='Name: '+el.name.value+'\nFirma: '+el.firma.value+'\nKontakt: '+el.kontakt.value+'\nPaket: '+el.paket.value+'\n\n'+el.text.value;
-      location.href='mailto:'+CONFIG.mail+'?subject='+encodeURIComponent('Website-Anfrage über EB Werbetechnik')+'&body='+encodeURIComponent(body);
-      msg.textContent='Ihr E-Mail-Programm öffnet sich mit der vorbereiteten Nachricht. Bitte dort auf Senden klicken.';return}
-    var data={access_key:CONFIG.formKey,subject:'Neue Anfrage über die Website',from_name:'EB Werbetechnik Website',name:cf.elements.name.value,firma:cf.elements.firma.value,kontakt:cf.elements.kontakt.value,paket:cf.elements.paket.value,nachricht:cf.elements.text.value,botcheck:cf.elements.botcheck.checked};
-    sendBtn.disabled=true;msg.textContent='Wird gesendet …';
+  // Anfragen: Web3Forms mit Schlüssel (CONFIG.formKey), sonst E-Mail-Programm
+  function sendInquiry(o){
+    var lines=Object.keys(o.fields).map(function(k){return k+': '+o.fields[k]}).join('\n');
+    if(!CONFIG.formKey){
+      location.href='mailto:'+CONFIG.mail+'?subject='+encodeURIComponent(o.subject)+'&body='+encodeURIComponent(lines);
+      o.msg.textContent='Ihr E-Mail-Programm öffnet sich mit der vorbereiteten Nachricht. Bitte dort auf Senden klicken.';return}
+    var data=Object.assign({access_key:CONFIG.formKey,subject:o.subject,from_name:'EB Werbetechnik Website',botcheck:o.form.elements.botcheck.checked},o.fields);
+    o.btn.disabled=true;o.msg.textContent='Wird gesendet …';
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)})
-      .then(function(r){return r.json()}).then(function(j){if(j.success){msg.textContent='Danke! Wir melden uns so schnell wie möglich.';cf.reset()}else throw 0})
-      .catch(function(){msg.textContent='Das hat leider nicht geklappt. Bitte rufen Sie uns an oder schreiben Sie eine E-Mail.'})
-      .finally(function(){sendBtn.disabled=false})});
+      .then(function(r){return r.json()}).then(function(j){if(j.success){o.msg.textContent='Danke! Wir melden uns so schnell wie möglich.';o.form.reset()}else throw 0})
+      .catch(function(){o.msg.textContent='Das hat leider nicht geklappt. Bitte rufen Sie uns an oder schreiben Sie eine E-Mail.'})
+      .finally(function(){o.btn.disabled=false})}
+
+  var cf=d.getElementById('cform');
+  cf.addEventListener('submit',function(e){e.preventDefault();var el=cf.elements,msg=cf.querySelector('.msg');
+    if(!el.name.value.trim()||!el.kontakt.value.trim()){msg.textContent='Bitte Name und Telefon oder E-Mail angeben.';return}
+    sendInquiry({form:cf,msg:msg,btn:cf.querySelector('button[type=submit]'),subject:'Website-Anfrage über EB Werbetechnik',
+      fields:{Name:el.name.value,Firma:el.firma.value,Kontakt:el.kontakt.value,Paket:el.paket.value,Nachricht:el.text.value}})});
+
+  var pf=d.getElementById('pform');
+  pf.addEventListener('submit',function(e){e.preventDefault();var el=pf.elements,msg=pf.querySelector('.msg');
+    if(!el.name.value.trim()||!el.kontakt.value.trim()){msg.textContent='Bitte Name und Telefon oder E-Mail angeben.';return}
+    if(!el.keine.checked&&!el.website.value.trim()){msg.textContent='Bitte die Adresse Ihrer Website angeben oder „Ich habe noch keine Website“ ankreuzen.';return}
+    sendInquiry({form:pf,msg:msg,btn:pf.querySelector('button[type=submit]'),subject:'Kostenlose Website-Prüfung über EB Werbetechnik',
+      fields:{Website:el.keine.checked?'(noch keine Website)':el.website.value,Name:el.name.value,Kontakt:el.kontakt.value}})});
 
   // WhatsApp-Button nur zeigen, wenn eine Nummer eingetragen ist
   if(CONFIG.whatsapp){var wa=d.getElementById('wa');wa.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent('Hallo, ich interessiere mich für eine Website.');wa.hidden=false}
 
-  // package finder
-  var fa={},fq=d.querySelectorAll('.f-q'),fres=d.querySelector('.f-res');
-  fq.forEach(function(q){q.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
-    q.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});fa[q.dataset.q]=b.dataset.v;
-    if(fa.seiten&&fa.extras&&fa.google){var pick,why;
-      if(fa.extras==='ja'){pick=3;why='Für Funktionen wie Terminbuchung oder Shop planen wir Ihre Seite individuell. Den Preis nennen wir nach dem Gespräch.'}
-      else if(fa.seiten==='gross'||fa.google==='ja'){pick=2;why='10+ Seiten Platz für alle Infos, ausführlich gestaltet, mit Google-Eintrag. 999 €.'}
-      else{pick=1;why='Ein schlichter, sauberer Auftritt mit 2–3 Seiten, inklusive Texten, Fotos und Logo. 699 €.'}
-      d.getElementById('f-name').textContent=['','Klein','Groß','Custom'][pick];d.getElementById('f-why').textContent=why;
-      fres.hidden=false;fres.dataset.pick=pick}})});
-  d.getElementById('f-go').addEventListener('click',function(){d.getElementById('paket').selectedIndex=+fres.dataset.pick});
+  // price calculator (nur Preise aus den Paketen, nichts dazu erfunden)
+  var cp=d.getElementById('c-pages'),cpn=d.getElementById('c-pn'),cg=d.getElementById('c-google'),cfn=d.getElementById('c-func'),ch=d.getElementById('c-host'),cc=d.getElementById('c-care');
+  var cpkg=d.getElementById('c-pkg'),cpr=d.getElementById('c-price'),ceur=d.getElementById('c-eur'),cnote=d.getElementById('c-note'),clines=d.getElementById('c-lines'),cgo=d.getElementById('c-go'),shown=699,pkgIdx=1,summary='';
+  var reduceC=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var twT;function tween(to){var from=shown,t0;shown=to;clearTimeout(twT);twT=setTimeout(function(){cpr.textContent=to},650);if(reduceC){cpr.textContent=to;return}requestAnimationFrame(function f(t){t0=t0||t;var k=Math.min(1,(t-t0)/450),e=1-Math.pow(1-k,3);cpr.textContent=Math.round(from+(to-from)*e);if(k<1&&shown===to)requestAnimationFrame(f)})}
+  function calc(){
+    var n=+cp.value,pages=n+(n===12?'+':''),lines=[],note='';
+    cpn.textContent=pages;cp.style.setProperty('--fill',((n-1)/11*100)+'%');
+    if(cfn.checked){clearTimeout(twT);pkgIdx=3;cpkg.textContent='Custom';cpr.textContent='Individuell';cpr.parentNode.classList.add('word');ceur.hidden=true;shown=0;
+      note='Für Terminbuchung, Shop und andere Funktionen planen wir Ihre Seite individuell.';lines.push('Umfang und Funktionen nach Bedarf','Preis nach persönlicher Beratung')}
+    else{cpr.parentNode.classList.remove('word');ceur.hidden=false;
+      if(n<=3&&!cg.checked){pkgIdx=1;cpkg.textContent='Klein';note='Einfache Website mit 2–3 Seiten, schlicht und sauber gestaltet.';lines.push('Texte, Fotos und Logo')}
+      else{pkgIdx=2;cpkg.textContent='Groß';note=n<=3?'Der Google-Eintrag ist im Paket Groß enthalten.':'Das Paket Groß ist für ausführliche Websites mit vielen Seiten gedacht. Für Seitenzahlen dazwischen finden wir im Gespräch die passende Lösung.';lines.push('Texte, Fotos und Logo','Google-Eintrag','DDoS-Schutz und Sicherheitspaket')}
+      tween(pkgIdx===1?699:999)}
+    if(ch.checked)lines.push('Domain und Hosting: wird extra kalkuliert');
+    if(cc.checked)lines.push('Pflege-Abo: wird extra kalkuliert');
+    cnote.textContent=note;clines.innerHTML=lines.map(function(l){return '<li>'+l+'</li>'}).join('');
+    summary='Preisrechner: '+cpkg.textContent+', '+pages+(n===1?' Seite':' Seiten')+(cg.checked?', Google-Eintrag':'')+(cfn.checked?', besondere Funktionen':'')+(ch.checked?', Domain und Hosting':'')+(cc.checked?', Pflege-Abo':'')}
+  [cp,cg,cfn,ch,cc].forEach(function(el){el.addEventListener('input',calc)});calc();
+  cgo.addEventListener('click',function(){d.getElementById('paket').selectedIndex=pkgIdx;var t=cf.elements.text;t.value=summary+(t.value&&t.value.indexOf('Preisrechner:')!==0?'\n\n'+t.value:'')});
+  d.getElementById('care-go').addEventListener('click',function(){d.getElementById('paket').value='Pflege-Abo'});
 
   onScroll();
 })();
