@@ -616,33 +616,6 @@ header.scrolled .brockbar{margin-top:-35px}
         <a class="btn btn-primary" href="#kontakt">Beratung anfragen</a>
       </article>
     </div>
-    <div class="calc card rv" id="calc">
-      <div class="c-left">
-        <p class="eyebrow">Preisrechner</p>
-        <h3>Was kostet <span class="grad">meine Seite?</span></h3>
-        <div class="c-row">
-          <label for="c-pages">Wie viele Seiten? <b id="c-pn">3</b></label>
-          <input type="range" id="c-pages" min="1" max="12" value="3">
-          <div class="c-scale" aria-hidden="true"><span>1</span><span>6</span><span>12+</span></div>
-        </div>
-        <fieldset class="c-opts">
-          <legend>Dazu wünsche ich mir</legend>
-          <label class="tog"><input type="checkbox" id="c-google"><span>Google-Eintrag</span></label>
-          <label class="tog"><input type="checkbox" id="c-func"><span>Terminbuchung, Shop oder andere Funktionen</span></label>
-          <label class="tog"><input type="checkbox" id="c-host"><span>Domain und Hosting von Ihnen</span></label>
-          <label class="tog"><input type="checkbox" id="c-care"><span>Pflege-Abo für schnelle Änderungen</span></label>
-        </fieldset>
-        <p class="c-inc">Texte, Fotos und Logo sind immer dabei.</p>
-      </div>
-      <div class="c-right" aria-live="polite">
-        <small>Ihre Empfehlung</small>
-        <strong class="c-pkg" id="c-pkg">Klein</strong>
-        <div class="c-price"><span id="c-price">699</span><em id="c-eur"> €</em></div>
-        <p class="c-note" id="c-note"></p>
-        <ul class="c-lines" id="c-lines"></ul>
-        <a class="btn btn-primary" href="#kontakt" id="c-go">Mit dieser Auswahl anfragen</a>
-      </div>
-    </div>
     <p class="fine center rv" style="text-align:center">Alle Preise sind Bruttopreise. Hosting und <a href="#pflege">Pflege</a> kalkulieren wir individuell, je nachdem, was Sie brauchen.</p>
   </div>
 </section>
@@ -1005,26 +978,6 @@ var CONFIG={formKey:'',whatsapp:'',mail:'info@elektro-brock.de'};
   // WhatsApp-Button nur zeigen, wenn eine Nummer eingetragen ist
   if(CONFIG.whatsapp){var wa=d.getElementById('wa');wa.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent('Hallo, ich interessiere mich für eine Website.');wa.hidden=false}
 
-  // price calculator (nur Preise aus den Paketen, nichts dazu erfunden)
-  var cp=d.getElementById('c-pages'),cpn=d.getElementById('c-pn'),cg=d.getElementById('c-google'),cfn=d.getElementById('c-func'),ch=d.getElementById('c-host'),cc=d.getElementById('c-care');
-  var cpkg=d.getElementById('c-pkg'),cpr=d.getElementById('c-price'),ceur=d.getElementById('c-eur'),cnote=d.getElementById('c-note'),clines=d.getElementById('c-lines'),cgo=d.getElementById('c-go'),shown=699,pkgIdx=1,summary='';
-  var reduceC=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var twT;function tween(to){var from=shown,t0;shown=to;clearTimeout(twT);twT=setTimeout(function(){cpr.textContent=to},650);if(reduceC){cpr.textContent=to;return}requestAnimationFrame(function f(t){t0=t0||t;var k=Math.min(1,(t-t0)/450),e=1-Math.pow(1-k,3);cpr.textContent=Math.round(from+(to-from)*e);if(k<1&&shown===to)requestAnimationFrame(f)})}
-  function calc(){
-    var n=+cp.value,pages=n+(n===12?'+':''),lines=[],note='';
-    cpn.textContent=pages;cp.style.setProperty('--fill',((n-1)/11*100)+'%');
-    if(cfn.checked){clearTimeout(twT);pkgIdx=3;cpkg.textContent='Custom';cpr.textContent='Individuell';cpr.parentNode.classList.add('word');ceur.hidden=true;shown=0;
-      note='Für Terminbuchung, Shop und andere Funktionen planen wir Ihre Seite individuell.';lines.push('Umfang und Funktionen nach Bedarf','Preis nach persönlicher Beratung')}
-    else{cpr.parentNode.classList.remove('word');ceur.hidden=false;
-      if(n<=3&&!cg.checked){pkgIdx=1;cpkg.textContent='Klein';note='Einfache Website mit 2–3 Seiten, schlicht und sauber gestaltet.';lines.push('Texte, Fotos und Logo')}
-      else{pkgIdx=2;cpkg.textContent='Groß';note=n<=3?'Der Google-Eintrag ist im Paket Groß enthalten.':'Das Paket Groß ist für ausführliche Websites mit vielen Seiten gedacht. Für Seitenzahlen dazwischen finden wir im Gespräch die passende Lösung.';lines.push('Texte, Fotos und Logo','Google-Eintrag','DDoS-Schutz und Sicherheitspaket')}
-      tween(pkgIdx===1?699:999)}
-    if(ch.checked)lines.push('Domain und Hosting: wird extra kalkuliert');
-    if(cc.checked)lines.push('Pflege-Abo: wird extra kalkuliert');
-    cnote.textContent=note;clines.innerHTML=lines.map(function(l){return '<li>'+l+'</li>'}).join('');
-    summary='Preisrechner: '+cpkg.textContent+', '+pages+(n===1?' Seite':' Seiten')+(cg.checked?', Google-Eintrag':'')+(cfn.checked?', besondere Funktionen':'')+(ch.checked?', Domain und Hosting':'')+(cc.checked?', Pflege-Abo':'')}
-  [cp,cg,cfn,ch,cc].forEach(function(el){el.addEventListener('input',calc)});calc();
-  cgo.addEventListener('click',function(){d.getElementById('paket').selectedIndex=pkgIdx;var t=cf.elements.text;t.value=summary+(t.value&&t.value.indexOf('Preisrechner:')!==0?'\n\n'+t.value:'')});
   d.getElementById('care-go').addEventListener('click',function(){d.getElementById('paket').value='Pflege-Abo'});
 
   onScroll();
